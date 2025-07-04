@@ -11,6 +11,23 @@
   will-change: filter;
   transition: filter 300ms;
 }
+.App {
+  text-align: center;
+  margin-top: 50px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #e41010;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
