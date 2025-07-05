@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import "./LoginPage.css";
 
 const LoginPage: React.FC = () => {
@@ -11,7 +9,7 @@ const LoginPage: React.FC = () => {
 
   const handleLogin = () => {
     if (username && password) {
-      navigate("/home");
+      navigate("/Dashboard");
     } else {
       alert("Please enter both username and password.");
     }
@@ -19,8 +17,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="login-container">
-      <img src= "/abc.png" alt="Bookmate Logo" className="logo" />
-
+      <img src="/abc.png" alt="Bookmate Logo" className="logo" />
       <div className="login-form">
         <h2>Login</h2>
         <input

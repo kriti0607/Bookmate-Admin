@@ -1,0 +1,57 @@
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .sidebar {
+    width: 240px;
+    background-color: #A5BE6B; /* Same green */
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 30px; /* Same spacing */
+  }
+  
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Same gap between links */
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px 0; /* Same padding */
+    transition: background 0.2s ease;
+    cursor: pointer;
+    display: block; /* Ensure hover area matches */
+  }
+  
+  .nav-link:hover,
+  .nav-link.active { /* Same hover/active states */
+    background-color: #d9d9d9;
+    border-radius: 6px;
+    padding-left: 8px;
+    color: #333; /* Text color on hover */
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 40px; /* Same padding */
+    background-color: #d9d9d9; /* Same light gray */
+  }
+  
+  .main-content h1 {
+    margin: 0; /* Same margin reset */
+    color: #333; /* Same text color */
+  }

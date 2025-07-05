@@ -1,27 +1,17 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import LoginPage from './LoginPage/LoginPage';
-import HomePage from './HomePage/HomePage';
+import LoginPage from "./LoginPage/LoginPage";
+import Dashboard from "./Dashboard/Dashboard";
+import Orders from "./Orders/Orders";
 
 const App: React.FC = () => {
-
   return (
-  
-      <div>
-        {/* Logo Section */}
-        {/* Navigation for Routing */}
-        <nav style={{ marginTop: "20px" }}>
-          <Link to="/">Login</Link> | <Link to="/home">Home</Link>
-        </nav>
-
-        {/* Routing Section */}
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/home" element={<HomePage />} />
-        </Routes>
-      </div>
-
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/orders" element={<Orders />} />
+      </Routes>
   );
 };
 
