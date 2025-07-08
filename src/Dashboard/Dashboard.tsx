@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
@@ -48,11 +48,26 @@ const sampleBooks = [
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
+  const [clicked, setClicked] = useState<Record<
+    string,
+    { approve: boolean; reject: boolean }
+  >>({});
+
+  const handleClick = (title: string, type: "approve" | "reject") => {
+    setClicked((prev) => ({
+      ...prev,
+      [title]: {
+        approve: type === "approve" ? true : prev[title]?.approve || false,
+        reject: type === "reject" ? true : prev[title]?.reject || false,
+      },
+    }));
+  };
+
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
       <aside className="sidebar">
-        <h2 className="sidebar-title">Menu</h2>
+        <h2 className="admin-title">Admin</h2>
         <nav className="sidebar-nav">
           <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
             <li className="nav-link active" onClick={() => navigate("/dashboard")}>
@@ -72,10 +87,19 @@ const Dashboard: React.FC = () => {
       <main className="main-content">
         <h1>Uploaded Books</h1>
 
+        {/* Header Row */}
+        <div className="book-row header-row">
+          <div className="book-col details">Details</div>
+          <div className="book-col price">Price</div>
+          <div className="book-col status">Status</div>
+          <div className="book-col comments">Comments</div>
+          <div className="book-col actions">Actions</div>
+        </div>
+
+        {/* Book Rows */}
         <div className="book-list">
           {sampleBooks.map((book, index) => (
             <div className="book-row" key={index}>
-              {/* Column 1 - Book Details */}
               <div className="book-col details">
                 <img src={book.imageUrl} alt={book.title} className="book-img" />
                 <div>
@@ -86,12 +110,10 @@ const Dashboard: React.FC = () => {
                 </div>
               </div>
 
-              {/* Column 2 - Price */}
               <div className="book-col price">
                 <p>{book.price}</p>
               </div>
 
-              {/* Column 3 - Status */}
               <div className="book-col status">
                 <span
                   className={`status-badge ${
@@ -102,9 +124,23 @@ const Dashboard: React.FC = () => {
                 </span>
               </div>
 
-              {/* Column 4 - Comments */}
               <div className="book-col comments">
                 <p>{book.comments}</p>
+              </div>
+
+              <div className="book-col actions">
+                <button
+                  className={`approve-button ${clicked[book.title]?.approve ? "clicked" : ""}`}
+                  onClick={() => handleClick(book.title, "approve")}
+                >
+                  Approve
+                </button>
+                <button
+                  className={`reject-button ${clicked[book.title]?.reject ? "clicked" : ""}`}
+                  onClick={() => handleClick(book.title, "reject")}
+                >
+                  Reject
+                </button>
               </div>
             </div>
           ))}
@@ -115,4 +151,3 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
-

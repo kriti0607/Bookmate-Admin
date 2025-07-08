@@ -1,4 +1,3 @@
-/* Main container layout */
 .dashboard-container {
   display: flex;
   height: 100vh;
@@ -7,10 +6,10 @@
   overflow: hidden;
 }
 
-/* Sidebar should stretch the full height */
+/* Sidebar */
 .sidebar {
   width: 240px;
-  background-color: #A5BE6B; /* soft green */
+  background-color: #A5BE6B;
   color: white;
   padding: 20px;
   display: flex;
@@ -21,11 +20,11 @@
   top: 0;
 }
 
-/* Sidebar styling */
-.sidebar-title {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 30px;
+.admin-title {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
 }
 
 .sidebar-nav {
@@ -53,7 +52,7 @@
   color: #333;
 }
 
-/* Main content scrollable */
+/* Main Content */
 .main-content {
   flex: 1;
   height: 100vh;
@@ -61,10 +60,10 @@
   padding: 40px;
   background-color: #f0f0f0;
   box-sizing: border-box;
-  color:rgb(89, 96, 118)
+  color: rgb(89, 96, 118);
 }
 
-/* Book List Layout */
+/* Book List */
 .book-list {
   display: flex;
   flex-direction: column;
@@ -81,11 +80,20 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Column widths */
+.book-row.header-row {
+  background: transparent;
+  box-shadow: none;
+  padding: 0 16px 8px 16px;
+  border-bottom: 2px solid #ccc;
+  font-weight: 600;
+  color: #666;
+}
+
+/* Columns */
 .book-col.details {
   flex: 3;
   display: flex;
-  gap: 16px;
+  gap: 12px;
 }
 
 .book-img {
@@ -97,7 +105,8 @@
 
 .book-col.price,
 .book-col.status,
-.book-col.comments {
+.book-col.comments,
+.book-col.actions {
   flex: 1;
   display: flex;
   align-items: center;
@@ -105,7 +114,12 @@
   text-align: center;
 }
 
-/* Status Badge Styling */
+.book-col.actions {
+  flex: 1.2;
+  gap: 8px;
+}
+
+/* Status Badge */
 .status-badge {
   padding: 6px 12px;
   border-radius: 12px;
@@ -115,11 +129,49 @@
 }
 
 .status-badge.available {
-  background-color: rgba(124, 180, 66, 0.25); /* soft green */
+  background-color: rgba(124, 180, 66, 0.25);
   color: #5c7f2d;
 }
 
 .status-badge.out {
-  background-color: rgba(244, 67, 54, 0.2); /* soft red */
+  background-color: rgba(244, 67, 54, 0.2);
   color: #a94442;
+}
+
+/* Action Buttons */
+.approve-button,
+.reject-button {
+  padding: 6px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.approve-button {
+  background-color: #7cb342;
+}
+
+.approve-button:hover {
+  background-color: #689f38;
+}
+
+.reject-button {
+  background-color: #e57373;
+}
+
+.reject-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Clicked State */
+.approve-button.clicked,
+.reject-button.clicked {
+  background-color: transparent;
+  color: #999;
+  border: 1px solid #ccc;
+  cursor: default;
+  pointer-events: none;
 }
