@@ -1,77 +1,73 @@
 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #f1f8e9, #ffffff);
-    background-repeat: no-repeat;
-    background-size: cover;
-    font-family: 'Segoe UI', sans-serif;
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-  
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw; 
+  background: linear-gradient(135deg, #f1f8e9, #f0f0f0);
+  padding: 0;
+}
+
 .logo {
-    width: 420px;
-    height: auto;
-    margin-bottom: 0;
+  width: 420px;
+  height: auto;
+  margin-bottom: 0;
 }
-  
+
+
 .login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 0;
-    padding: 40px;
-    width: 400px;
-    background-color: white;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-    border-radius: 16px;
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  padding: 40px;
+  width: 400px;
+  background-color: white;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
-  
+
 h2 {
-    font-size: 32px;
-    margin: 10px 0 30px 0;
-    font-family: 'Segoe UI', sans-serif;
-    color: #558B2F;
+  font-size: 32px;
+  margin: 10px 0 30px 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: #558B2F;
 }
-  
+
 .input-field {
-    padding: 14px 18px;
-    margin: 10px 0;
-    width: 100%;
-    font-size: 17px;
-    border: 1px solid #cbd5c0;
-    border-radius: 8px;
-    background-color: #f8f8f8;
-    transition: border 0.2s ease;
+  padding: 14px 18px;
+  margin: 10px 0;
+  width: 100%;
+  font-size: 17px;
+  border: 1px solid #cbd5c0;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  transition: border 0.2s ease;
+  color:rgb(89, 96, 118)
 }
-  
-  .input-field:focus {
-    border: 1px solid #7CB342;
-    outline: none;
+
+.input-field:focus {
+  border: 1px solid #7CB342;
+  outline: none;
 }
-  
+
 .login-button {
-    padding: 14px;
-    background-color: white;
-    color: #7CB342;
-    font-size: 18px;
-    font-weight: bold;
-    border: 2px solid #7CB342;
-    border-radius: 8px;
-    margin-top: 20px;
-    width: 100%;
-    cursor: pointer;
-    box-shadow: 0px 2px 6px rgba(124, 179, 66, 0.2);
-    transition: all 0.3s ease;
+  padding: 14px;
+  background-color: white;
+  color: #7CB342;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #7CB342;
 }
-  
-.login-button:hover {
-    background-color: #7CB342;
-    color: white;
-    box-shadow: 0px 4px 12px rgba(124, 179, 66, 0.4);
-}
-  
-  
