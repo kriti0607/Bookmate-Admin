@@ -63,6 +63,11 @@
   color: rgb(89, 96, 118);
 }
 
+/* Dashboard Heading - Added 50px gap */
+.dashboard-heading {
+  margin-bottom: 50px; /* Key change: Adds space below heading */
+}
+
 /* Book List */
 .book-list {
   display: flex;
@@ -174,4 +179,4 @@
   border: 1px solid #ccc;
   cursor: default;
   pointer-events: none;
-}
+} 
