@@ -75,9 +75,14 @@ const Dashboard: React.FC = () => {
     string,
     { approve: boolean; reject: boolean }
   >>({});
+
   const [priceSort, setPriceSort] = useState("");
   const [genreFilter, setGenreFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedBook, setSelectedBook] = useState<any | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleClick = (title: string, type: "approve" | "reject") => {
     setClicked((prev) => ({
@@ -116,6 +121,37 @@ const Dashboard: React.FC = () => {
 
   const allGenres = [...new Set(sampleBooks.map((b) => b.genre))];
 
+  const openModal = (book: Book) => {
+    setSelectedBook({
+      ...book,
+      images: [
+        book.imageUrl,
+        "https://via.placeholder.com/300x400?text=Page+1",
+        "https://via.placeholder.com/300x400?text=Page+2",
+        "https://via.placeholder.com/300x400?text=Page+3",
+      ],
+    });
+    setCurrentImageIndex(0);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedBook(null);
+  };
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === selectedBook.images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? selectedBook.images.length - 1 : prev - 1
+    );
+  };
+
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
@@ -138,7 +174,6 @@ const Dashboard: React.FC = () => {
       <main className="main-content">
         <h1 className="dashboard-heading">Uploaded Books</h1>
 
-        {/* Filters */}
         <div className="filters-inline">
           <select onChange={(e) => setPriceSort(e.target.value)} value={priceSort}>
             <option value="">Sort by Price</option>
@@ -161,7 +196,6 @@ const Dashboard: React.FC = () => {
           </select>
         </div>
 
-        {/* Table Header */}
         <div className="book-row header-row">
           <div className="book-col details">Details</div>
           <div className="book-col price">Price</div>
@@ -170,7 +204,6 @@ const Dashboard: React.FC = () => {
           <div className="book-col actions">Actions</div>
         </div>
 
-        {/* Book Rows */}
         <div className="book-list">
           {filteredBooks.map((book, index) => {
             const approvalStatus = clicked[book.title]?.approve
@@ -182,7 +215,13 @@ const Dashboard: React.FC = () => {
             return (
               <div className="book-row" key={index}>
                 <div className="book-col details">
-                  <img src={book.imageUrl} alt={book.title} className="book-img" />
+                  <img
+                    src={book.imageUrl}
+                    alt={book.title}
+                    className="book-img"
+                    onClick={() => openModal(book)}
+                    style={{ cursor: "pointer" }}
+                  />
                   <div>
                     <strong>{book.title}</strong>
                     <p>Author: {book.author}</p>
@@ -224,6 +263,59 @@ const Dashboard: React.FC = () => {
           })}
         </div>
       </main>
+
+      {showModal && selectedBook && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button className="modal-close" onClick={closeModal}>×</button>
+
+            <div className="image-slider">
+              <button onClick={prevImage} className="slider-btn">❮</button>
+              <img
+                src={selectedBook.images[currentImageIndex]}
+                alt={`Slide ${currentImageIndex + 1}`}
+                className="modal-image"
+              />
+              <button onClick={nextImage} className="slider-btn">❯</button>
+            </div>
+
+            <div className="image-count">{currentImageIndex + 1} / {selectedBook.images.length}</div>
+
+            <h2 className="popup-book-title">{selectedBook?.title}</h2>
+
+            <div className="book-info-box">
+              <div className="info-item"><span className="info-label">Author</span><span className="info-value">{selectedBook.author}</span></div>
+              <div className="info-item"><span className="info-label">Edition</span><span className="info-value">Lorem ipsum</span></div>
+              <div className="info-item"><span className="info-label">Publisher</span><span className="info-value">{selectedBook.publisher}</span></div>
+              <div className="info-item"><span className="info-label">Upload Date</span><span className="info-value">3 June 2023</span></div>
+              <div className="info-item"><span className="info-label">Price</span><span className="info-value">{selectedBook.price}</span></div>
+              <div className="info-item"><span className="info-label">Location</span><span className="info-value">3.2 km</span></div>
+              <div className="info-item"><span className="info-label">Condition</span><span className="info-value">Good</span></div>
+            </div>
+
+            <div className="popup-actions">
+              <button
+                className="approve-button"
+                onClick={() => {
+                  handleClick(selectedBook.title, "approve");
+                  closeModal();
+                }}
+              >
+                Approve
+              </button>
+              <button
+                className="reject-button"
+                onClick={() => {
+                  handleClick(selectedBook.title, "reject");
+                  closeModal();
+                }}
+              >
+                Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
