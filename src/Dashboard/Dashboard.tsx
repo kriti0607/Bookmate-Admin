@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
 type BookStatus = "Available" | "Out of Stock";
-type ApprovalStatus = "Pending" | "Approved" | "Rejected";
 
 interface Book {
   imageUrl: string;
@@ -14,7 +13,6 @@ interface Book {
   price: string;
   status: BookStatus;
   comments: string;
-  approval: ApprovalStatus;
 }
 
 const sampleBooks: Book[] = [
@@ -27,7 +25,6 @@ const sampleBooks: Book[] = [
     price: "₹999",
     status: "Available",
     comments: "Core CS textbook",
-    approval: "Pending",
   },
   {
     imageUrl: "https://via.placeholder.com/80",
@@ -38,7 +35,6 @@ const sampleBooks: Book[] = [
     price: "₹850",
     status: "Out of Stock",
     comments: "1st-year syllabus",
-    approval: "Approved",
   },
   {
     imageUrl: "https://via.placeholder.com/80",
@@ -49,7 +45,6 @@ const sampleBooks: Book[] = [
     price: "₹1,250",
     status: "Available",
     comments: "UG science",
-    approval: "Rejected",
   },
   {
     imageUrl: "https://via.placeholder.com/80",
@@ -60,7 +55,6 @@ const sampleBooks: Book[] = [
     price: "₹630",
     status: "Available",
     comments: "Standard reference",
-    approval: "Pending",
   },
   {
     imageUrl: "https://via.placeholder.com/80",
@@ -71,7 +65,6 @@ const sampleBooks: Book[] = [
     price: "₹720",
     status: "Out of Stock",
     comments: "Conceptual physics",
-    approval: "Approved",
   },
 ];
 
@@ -105,7 +98,14 @@ const Dashboard: React.FC = () => {
   }
 
   if (statusFilter) {
-    filteredBooks = filteredBooks.filter((book) => book.approval === statusFilter);
+    filteredBooks = filteredBooks.filter((book) => {
+      const status = clicked[book.title]?.approve
+        ? "Approved"
+        : clicked[book.title]?.reject
+        ? "Rejected"
+        : "Pending";
+      return status === statusFilter;
+    });
   }
 
   if (priceSort === "low-high") {
@@ -118,7 +118,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard-container">
-      {/* Sidebar */}
       <aside className="sidebar">
         <h2 className="admin-title">Admin</h2>
         <nav className="sidebar-nav">
@@ -136,12 +135,11 @@ const Dashboard: React.FC = () => {
         </nav>
       </aside>
 
-      {/* Main Content */}
       <main className="main-content">
-        <h1 style={{ marginBottom: "50px" }}>Uploaded Books</h1>
+        <h1 className="dashboard-heading">Uploaded Books</h1>
 
         {/* Filters */}
-        <div className="filters" style={{ display: "flex", gap: "20px", marginBottom: "30px" }}>
+        <div className="filters-inline">
           <select onChange={(e) => setPriceSort(e.target.value)} value={priceSort}>
             <option value="">Sort by Price</option>
             <option value="low-high">Low to High</option>
@@ -163,7 +161,7 @@ const Dashboard: React.FC = () => {
           </select>
         </div>
 
-        {/* Header Row */}
+        {/* Table Header */}
         <div className="book-row header-row">
           <div className="book-col details">Details</div>
           <div className="book-col price">Price</div>
@@ -174,52 +172,56 @@ const Dashboard: React.FC = () => {
 
         {/* Book Rows */}
         <div className="book-list">
-          {filteredBooks.map((book, index) => (
-            <div className="book-row" key={index}>
-              <div className="book-col details">
-                <img src={book.imageUrl} alt={book.title} className="book-img" />
-                <div>
-                  <strong>{book.title}</strong>
-                  <p>Author: {book.author}</p>
-                  <p>Publisher: {book.publisher}</p>
-                  <p>Genre: {book.genre}</p>
+          {filteredBooks.map((book, index) => {
+            const approvalStatus = clicked[book.title]?.approve
+              ? "Approved"
+              : clicked[book.title]?.reject
+              ? "Rejected"
+              : "Pending";
+
+            return (
+              <div className="book-row" key={index}>
+                <div className="book-col details">
+                  <img src={book.imageUrl} alt={book.title} className="book-img" />
+                  <div>
+                    <strong>{book.title}</strong>
+                    <p>Author: {book.author}</p>
+                    <p>Publisher: {book.publisher}</p>
+                    <p>Genre: {book.genre}</p>
+                  </div>
+                </div>
+
+                <div className="book-col price">
+                  <p>{book.price}</p>
+                </div>
+
+                <div className="book-col status">
+                  <span className={`status-badge ${approvalStatus.toLowerCase()}`}>
+                    {approvalStatus}
+                  </span>
+                </div>
+
+                <div className="book-col comments">
+                  <p>{book.comments}</p>
+                </div>
+
+                <div className="book-col actions">
+                  <button
+                    className={`approve-button ${clicked[book.title]?.approve ? "clicked" : ""}`}
+                    onClick={() => handleClick(book.title, "approve")}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className={`reject-button ${clicked[book.title]?.reject ? "clicked" : ""}`}
+                    onClick={() => handleClick(book.title, "reject")}
+                  >
+                    Reject
+                  </button>
                 </div>
               </div>
-
-              <div className="book-col price">
-                <p>{book.price}</p>
-              </div>
-
-              <div className="book-col status">
-                <span
-                  className={`status-badge ${
-                    book.status === "Available" ? "available" : "out"
-                  }`}
-                >
-                  {book.approval}
-                </span>
-              </div>
-
-              <div className="book-col comments">
-                <p>{book.comments}</p>
-              </div>
-
-              <div className="book-col actions">
-                <button
-                  className={`approve-button ${clicked[book.title]?.approve ? "clicked" : ""}`}
-                  onClick={() => handleClick(book.title, "approve")}
-                >
-                  Approve
-                </button>
-                <button
-                  className={`reject-button ${clicked[book.title]?.reject ? "clicked" : ""}`}
-                  onClick={() => handleClick(book.title, "reject")}
-                >
-                  Reject
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </main>
     </div>
