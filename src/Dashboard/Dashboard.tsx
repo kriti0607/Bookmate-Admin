@@ -17,7 +17,7 @@ interface Book {
 
 const sampleBooks: Book[] = [
   {
-    imageUrl: "https://via.placeholder.com/80",
+    imageUrl: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=400&h=600",
     title: "Introduction to Algorithms",
     author: "Thomas H. Cormen",
     publisher: "MIT Press",
@@ -126,9 +126,10 @@ const Dashboard: React.FC = () => {
       ...book,
       images: [
         book.imageUrl,
-        "https://via.placeholder.com/300x400?text=Page+1",
-        "https://via.placeholder.com/300x400?text=Page+2",
-        "https://via.placeholder.com/300x400?text=Page+3",
+        "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=400&h=600", // ✅ mock book photo
+      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=400&h=600",
+      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=400&h=600",
+      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=400&h=600",
       ],
     });
     setCurrentImageIndex(0);

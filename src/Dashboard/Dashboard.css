@@ -236,9 +236,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 24px;
   width: 100%;
-  height: 55%;
+  height: 70%;
 }
 
 .slider-btn {
@@ -250,11 +250,12 @@
 }
 
 .modal-image {
+  width: 80%;
+  height: auto;
   max-height: 100%;
-  max-width: 60%;
-  object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .image-count {
