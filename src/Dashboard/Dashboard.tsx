@@ -17,7 +17,7 @@ interface Book {
 
 const sampleBooks: Book[] = [
   {
-    imageUrl: "https://via.placeholder.com/80",
+    imageUrl: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=400&h=600",
     title: "Introduction to Algorithms",
     author: "Thomas H. Cormen",
     publisher: "MIT Press",
@@ -84,6 +84,10 @@ const Dashboard: React.FC = () => {
   const [selectedBook, setSelectedBook] = useState<any | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const [showReasonPopup, setShowReasonPopup] = useState(false);
+  const [selectedReason, setSelectedReason] = useState("");
+
+
   const handleClick = (title: string, type: "approve" | "reject") => {
     setClicked((prev) => ({
       ...prev,
@@ -93,6 +97,8 @@ const Dashboard: React.FC = () => {
       },
     }));
   };
+  const [newPrice, setNewPrice] = useState("");
+
 
   const parsePrice = (price: string) => Number(price.replace(/[₹,]/g, ""));
 
@@ -126,9 +132,9 @@ const Dashboard: React.FC = () => {
       ...book,
       images: [
         book.imageUrl,
-        "https://via.placeholder.com/300x400?text=Page+1",
-        "https://via.placeholder.com/300x400?text=Page+2",
-        "https://via.placeholder.com/300x400?text=Page+3",
+        "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=400&h=600",
+        "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=400&h=600",
+        "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=400&h=600",
       ],
     });
     setCurrentImageIndex(0);
@@ -306,11 +312,85 @@ const Dashboard: React.FC = () => {
               <button
                 className="reject-button"
                 onClick={() => {
-                  handleClick(selectedBook.title, "reject");
-                  closeModal();
+                  setShowReasonPopup(true);
                 }}
               >
                 Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showReasonPopup && selectedBook && (
+        <div className="reason-modal-overlay">
+          <div className="reason-popup">
+            <h2 className="popup-book-title">Select the Reason for Rejecting</h2>
+            <select
+              className="dropdown"
+              value={selectedReason}
+              onChange={(e) => setSelectedReason(e.target.value)}
+            >
+              <option value="" disabled hidden>
+                -- Select a Reason --
+              </option>
+              <option value="Inappropriate Content">Inappropriate Content</option>
+              <option value="Poor Quality">Poor Quality</option>
+              <option value="Duplicate Entry">Duplicate Entry</option>
+              <option value="Other">Other</option>
+              <option value="Poor Book Condition">Poor Book Condition</option>
+              <option value="Incorrect or Missing Publishing Year">Incorrect or Missing Publishing Year</option>
+              <option value="Inappropriate or Offensive Content">Inappropriate or Offensive Content</option>
+              <option value="Blurry or Low-Quality Images">Blurry or Low-Quality Images</option>
+              <option value="Title or Author Mismatch">Title or Author Mismatch</option>
+              <option value="Incomplete or Inaccurate Description">Incomplete or Inaccurate Description</option>
+              <option value="Book Not in Allowed Categories">Book Not in Allowed Categories</option>
+              <option value="Duplicate Listing">Duplicate Listing</option>
+              <option value="Pricing is Too High or Unreasonable">Pricing is Too High or Unreasonable</option>
+              <option value="Pirated or Unauthorized Copy">Pirated or Unauthorized Copy</option>
+              <option value="Watermarked or Edited Cover Image">Watermarked or Edited Cover Image</option>
+              <option value="Language Not Supported">Language Not Supported</option>
+              <option value="Personal or Contact Information in Description">Personal or Contact Information in Description</option>
+              <option value="Promotional or Spam Content">Promotional or Spam Content</option>
+              <option value="Missing Pages or Damaged Binding">Missing Pages or Damaged Binding</option>
+              <option value="Cover Page Missing or Not Visible">Cover Page Missing or Not Visible</option>
+              <option value="Not a Book (e.g., uploaded a notebook, magazine, etc.)">Not a Book (e.g., uploaded a notebook, magazine, etc.)</option>
+              <option value="Fake or Misleading Information">Fake or Misleading Information</option>
+              <option value="Illegal or Banned Book">Illegal or Banned Book</option>
+              <option value="Requires Manual Review – Contact Support">Requires Manual Review – Contact Support</option>
+            </select>
+            <div className="new-price-container">
+        <label htmlFor="newPrice" className="new-price-label">
+          Enter New Price (optional):
+        </label>
+        <input
+          type="text"
+          id="newPrice"
+          value={newPrice}
+          onChange={(e) => setNewPrice(e.target.value)}
+          placeholder="e.g., ₹500"
+          className="new-price-input"
+        />
+      </div>
+            <div className="popup-actions">
+              <button
+                className="approve-button"
+                onClick={() => {
+                  handleClick(selectedBook.title, "reject");
+                  setShowReasonPopup(false);
+                  closeModal();
+                  console.log("Reason:", selectedReason);
+                }}
+              >
+                Submit
+              </button>
+              <button
+                className="reject-button"
+                onClick={() => {
+                  setShowReasonPopup(false);
+                }}
+              >
+                Cancel
               </button>
             </div>
           </div>
