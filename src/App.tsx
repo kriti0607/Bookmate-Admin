@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import LoginPage from "./LoginPage/LoginPage";
 import Dashboard from "./Dashboard/Dashboard";
@@ -16,4 +16,4 @@ const App: React.FC = () => {
 };
 
 
-export default App;
+export default  App;

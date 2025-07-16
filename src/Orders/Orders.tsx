@@ -48,7 +48,7 @@ const Orders: React.FC = () => {
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
-        <h2 className="sidebar-title">Menu</h2>
+        <h2 className="sidebar-title">Admin</h2>
         <nav className="sidebar-nav">
           <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
             <li className="nav-link" onClick={() => navigate("/dashboard")}>
@@ -65,28 +65,46 @@ const Orders: React.FC = () => {
       </aside>
 
       <main className="main-content">
-        <h1>Orders</h1>
-        <div className="orders-container">
-          {sampleOrders.map((order, index) => (
-            <div className="order-card" key={index}>
-              <div><strong>Book Name:</strong> {order.bookName}</div>
-              <div><strong>Uploaded By:</strong> {order.uploadedBy}</div>
-              <div><strong>Uploaded On:</strong> {order.uploadedOn}</div>
-              <div><strong>Status:</strong> {order.currentStatus}</div>
-              <div><strong>Buyer:</strong> {order.buyerName}</div>
-              <div><strong>Comments:</strong> {order.comments || "None"}</div>
-              <button
-                className="notify-button"
-                disabled={
-                  order.currentStatus !== "Approved" &&
-                  order.currentStatus !== "InListing"
-                }
-                onClick={() => handleNotify(order.bookName)}
-              >
-                Notify User Again
-              </button>
-            </div>
-          ))}
+        <h1 className="orders-heading">Orders</h1>
+
+        <div className="orders-box">
+          <table className="orders-table">
+            <thead>
+              <tr>
+                <th>Book Name</th>
+                <th>Uploaded By</th>
+                <th>Uploaded On</th>
+                <th>Status</th>
+                <th>Buyer</th>
+                <th>Comments</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sampleOrders.map((order, index) => (
+                <tr key={index}>
+                  <td>{order.bookName}</td>
+                  <td>{order.uploadedBy}</td>
+                  <td>{order.uploadedOn}</td>
+                  <td>{order.currentStatus}</td>
+                  <td>{order.buyerName}</td>
+                  <td>{order.comments || "None"}</td>
+                  <td>
+                    <button
+                      className="notify-button"
+                      disabled={
+                        order.currentStatus !== "Approved" &&
+                        order.currentStatus !== "InListing"
+                      }
+                      onClick={() => handleNotify(order.bookName)}
+                    >
+                      Notify
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </main>
     </div>
@@ -94,3 +112,4 @@ const Orders: React.FC = () => {
 };
 
 export default Orders;
+
