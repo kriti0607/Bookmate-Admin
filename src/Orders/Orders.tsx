@@ -11,13 +11,8 @@ interface Order {
   comments: string;
   price: string;
   bookHistory: string[];
-  userProfile: {
-    name: string;
-    email: string;
-    image: string;
-  };
-  userBooks: string[];
-  otherDetails: string;
+  userProfileImage: string;
+  otherBooks: string[];
 }
 
 const sampleOrders: Order[] = [
@@ -28,15 +23,10 @@ const sampleOrders: Order[] = [
     currentStatus: "Approved",
     buyerName: "Jane Smith",
     comments: "Book looks great!",
-    price: "$12.99",
-    bookHistory: ["Uploaded on 2025-07-12", "Approved on 2025-07-14"],
-    userProfile: {
-      name: "John Doe",
-      email: "john@example.com",
-      image: "https://via.placeholder.com/100",
-    },
-    userBooks: ["Deep Work", "The Alchemist"],
-    otherDetails: "Hardcover, 320 pages",
+    price: "1299",
+    bookHistory: ["Uploaded", "Reviewed", "Approved"],
+    userProfileImage: "https://via.placeholder.com/50",
+    otherBooks: ["Deep Work", "The Power of Habit"],
   },
   {
     bookName: "Deep Work",
@@ -45,15 +35,10 @@ const sampleOrders: Order[] = [
     currentStatus: "Rejected",
     buyerName: "-",
     comments: "Low quality images",
-    price: "$9.99",
-    bookHistory: ["Uploaded on 2025-07-10", "Rejected on 2025-07-11"],
-    userProfile: {
-      name: "Alice Brown",
-      email: "alice@example.com",
-      image: "https://via.placeholder.com/100",
-    },
-    userBooks: ["Clean Code", "Atomic Habits"],
-    otherDetails: "Paperback, 250 pages",
+    price: "$999",
+    bookHistory: ["Uploaded", "Reviewed", "Rejected"],
+    userProfileImage: "https://via.placeholder.com/50",
+    otherBooks: ["Digital Minimalism"],
   },
   {
     bookName: "Clean Code",
@@ -62,15 +47,10 @@ const sampleOrders: Order[] = [
     currentStatus: "InListing",
     buyerName: "-",
     comments: "",
-    price: "$14.49",
-    bookHistory: ["Uploaded on 2025-07-08"],
-    userProfile: {
-      name: "Charlie Gray",
-      email: "charlie@example.com",
-      image: "https://via.placeholder.com/100",
-    },
-    userBooks: ["Deep Work", "Refactoring"],
-    otherDetails: "Softcover, 464 pages",
+    price: "$1450",
+    bookHistory: ["Uploaded"],
+    userProfileImage: "https://via.placeholder.com/50",
+    otherBooks: ["Refactoring", "The Pragmatic Programmer"],
   },
 ];
 
@@ -80,6 +60,19 @@ const Orders: React.FC = () => {
 
   const handleNotify = (bookName: string) => {
     alert(`User notified again for: ${bookName}`);
+  };
+
+  const handleBlockUser = (username: string) => {
+    alert(`User ${username} has been blocked.`);
+    closeModal();
+  };
+
+  const openModal = (order: Order) => {
+    setSelectedOrder(order);
+  };
+
+  const closeModal = () => {
+    setSelectedOrder(null);
   };
 
   return (
@@ -119,11 +112,7 @@ const Orders: React.FC = () => {
             </thead>
             <tbody>
               {sampleOrders.map((order, index) => (
-                <tr
-                  key={index}
-                  onClick={() => setSelectedOrder(order)}
-                  className="order-row"
-                >
+                <tr key={index} onClick={() => openModal(order)} style={{ cursor: "pointer" }}>
                   <td>{order.bookName}</td>
                   <td>{order.uploadedBy}</td>
                   <td>{order.uploadedOn}</td>
@@ -152,34 +141,44 @@ const Orders: React.FC = () => {
         </div>
 
         {selectedOrder && (
-          <div className="modal-overlay" onClick={() => setSelectedOrder(null)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <button className="modal-close" onClick={() => setSelectedOrder(null)}>×</button>
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <button className="modal-close" onClick={closeModal}>
+                ×
+              </button>
               <h2>{selectedOrder.bookName}</h2>
-              <p><strong>Uploaded By:</strong> {selectedOrder.uploadedBy}</p>
+              <p><strong>Uploaded by:</strong> {selectedOrder.uploadedBy}</p>
               <p><strong>Price:</strong> {selectedOrder.price}</p>
 
-              <p><strong>Book History:</strong></p>
-              <ul>
-                {selectedOrder.bookHistory.map((event, i) => (
-                  <li key={i}>{event}</li>
-                ))}
-              </ul>
-
               <div className="user-profile">
-                <img src={selectedOrder.userProfile.image} alt="User" />
-                <p>{selectedOrder.userProfile.name}</p>
-                <p>{selectedOrder.userProfile.email}</p>
+                <img src={selectedOrder.userProfileImage} alt="User" />
+                <div>
+                  <p><strong>{selectedOrder.uploadedBy}</strong></p>
+                  <p>Uploader Profile</p>
+                </div>
               </div>
 
-              <p><strong>Other Books by User:</strong></p>
-              <ul>
-                {selectedOrder.userBooks.map((book, i) => (
-                  <li key={i}>{book}</li>
-                ))}
-              </ul>
+              <div>
+                <h4>Book History</h4>
+                <ul>
+                  {selectedOrder.bookHistory.map((event, i) => (
+                    <li key={i}>{event}</li>
+                  ))}
+                </ul>
+              </div>
 
-              <p><strong>Other Details:</strong> {selectedOrder.otherDetails}</p>
+              <div>
+                <h4>Other Books by User</h4>
+                <ul>
+                  {selectedOrder.otherBooks.map((book, i) => (
+                    <li key={i}>{book}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <button className="block-button" onClick={() => handleBlockUser(selectedOrder.uploadedBy)}>
+                Block User
+              </button>
             </div>
           </div>
         )}
@@ -189,3 +188,4 @@ const Orders: React.FC = () => {
 };
 
 export default Orders;
+
