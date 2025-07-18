@@ -1,3 +1,145 @@
+/* ===== NEW HISTORY TABLE STYLES ===== */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 14px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.history-table th {
+  background-color: #7cb34270;
+  color: #666;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.history-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #666;
+  vertical-align: top;
+}
+
+.history-table tr:last-child td {
+  border-bottom: none;
+}
+
+.history-table tr:hover {
+  background-color: #f8f8f8;
+}
+
+.history-table .action-cell {
+  font-weight: 500;
+  color: #333;
+}
+
+.history-table .comments-cell {
+  color: #666;
+  font-style: italic;
+}
+
+/* Responsive adjustments for history table */
+@media (max-width: 768px) {
+  .history-table {
+    font-size: 13px;
+  }
+  
+  .history-table th,
+  .history-table td {
+    padding: 10px 12px;
+  }
+}
+
+/* ===== ENHANCED BOOK DETAILS STYLES ===== */
+.book-details-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.book-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.book-details-title {
+  margin: 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.book-detail-row {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.book-detail-label {
+  font-weight: 600;
+  color: #555;
+  min-width: 120px;
+}
+
+.book-detail-value {
+  color: #333;
+  flex: 1;
+}
+
+/* ===== TAB CONTENT SCROLLING ===== */
+.tab-scroll-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* ===== STATUS BADGES ===== */
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-uploaded {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-reviewed {
+  background-color: #fff8e1;
+  color: #ff8f00;
+}
+
+.status-approved {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.status-rejected {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+/* ===== MODAL CONTENT SPACING ===== */
+.modal-content-section {
+  margin-bottom: 20px;
+}
+
+.modal-content-section:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== EXISTING STYLES (remain unchanged) ===== */
 .orders-container {
   display: flex;
   flex-direction: column;
@@ -29,7 +171,7 @@
 .notify-button {
   margin-top: 12px;
   padding: 10px 16px;
-  background-color: #7CB342; /* Same green as sidebar */
+  background-color: #7CB342;
   color: white;
   border: none;
   border-radius: 6px;
@@ -81,7 +223,7 @@
 }
 
 .orders-table th {
-  background-color: #fafafa;
+  background-color: #7cb34270;
   font-weight: 600;
 }
 
@@ -89,75 +231,135 @@
   background-color: #f9f9f9;
 }
 
-.notify-button {
-  padding: 6px 12px;
-  background-color: #7CB342;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.notify-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* ===== Modal Styles (Popup) ===== */
-
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
 }
 
-.modal-content {
+.modal-container {
   background-color: #fff;
-  width: 50%;
-  max-height: 90vh;
-  overflow-y: auto;
-  border-radius: 12px;
+  width: 70%;
+  max-height: 85vh;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modal-top-box {
   padding: 24px;
+  border-bottom: 1px solid #eee;
+  background-color: #fdfdfd;
   position: relative;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #333;
+}
+
+.modal-info-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 15px;
+  margin-top: 12px;
+  color: #555;
+}
+
+.modal-comments {
+  margin-top: 16px;
+  font-size: 15px;
+  color: #555;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.modal-bottom-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 12px;
+}
+
+.modal-tabs button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.modal-tabs button.active-tab {
+  background-color: #7CB342;
+  color: white;
+}
+
+.modal-tab-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.modal-tab-content ul {
+  padding-left: 20px;
+}
+
+.modal-tab-content li {
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #444;
 }
 
 .modal-close {
   position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 22px;
+  top: 16px;
+  right: 20px;
+  font-size: 24px;
   font-weight: bold;
   background: none;
   border: none;
   cursor: pointer;
   color: #666;
+  transition: color 0.2s ease;
 }
 
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 16px 0;
+.modal-close:hover {
+  color: #333;
 }
 
-.user-profile img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-}
 .block-button {
-  margin-top: auto;
-  align-self: flex-end;
-  padding: 10px 20px;
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  padding: 8px 16px;
   background-color: #d9534f;
   color: white;
   border: none;
@@ -169,4 +371,75 @@
 
 .block-button:hover {
   background-color: #c9302c;
+}
+
+.book-details {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #7CB342;
+}
+
+.book-details h3 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.book-details p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.book-details strong {
+  color: #555;
+  min-width: 100px;
+  display: inline-block;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+@media (max-width: 1200px) {
+  .modal-container {
+    width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .modal-container {
+    width: 95%;
+    max-height: 90vh;
+  }
+  
+  .modal-info-line {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
