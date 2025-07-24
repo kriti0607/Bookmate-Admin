@@ -113,8 +113,8 @@ const Dashboard: React.FC = () => {
       const status = clicked[book.title]?.approve
         ? "Approved"
         : clicked[book.title]?.reject
-        ? "Rejected"
-        : "Pending";
+          ? "Rejected"
+          : "Pending";
       return status === statusFilter;
     });
   }
@@ -167,6 +167,9 @@ const Dashboard: React.FC = () => {
             <li className="nav-link active" onClick={() => navigate("/dashboard")}>
               Dashboard
             </li>
+            <li className="nav-link" onClick={() => navigate("/user")}>  {/* New User link */}
+              User
+            </li>
             <li className="nav-link" onClick={() => navigate("/orders")}>
               Orders
             </li>
@@ -176,6 +179,7 @@ const Dashboard: React.FC = () => {
           </ul>
         </nav>
       </aside>
+
 
       <main className="main-content">
         <h1 className="dashboard-heading">Uploaded Books</h1>
@@ -215,8 +219,8 @@ const Dashboard: React.FC = () => {
             const approvalStatus = clicked[book.title]?.approve
               ? "Approved"
               : clicked[book.title]?.reject
-              ? "Rejected"
-              : "Pending";
+                ? "Rejected"
+                : "Pending";
 
             return (
               <div className="book-row" key={index}>
@@ -360,18 +364,18 @@ const Dashboard: React.FC = () => {
               <option value="Requires Manual Review – Contact Support">Requires Manual Review – Contact Support</option>
             </select>
             <div className="new-price-container">
-        <label htmlFor="newPrice" className="new-price-label">
-          Enter New Price (optional):
-        </label>
-        <input
-          type="text"
-          id="newPrice"
-          value={newPrice}
-          onChange={(e) => setNewPrice(e.target.value)}
-          placeholder="e.g., ₹500"
-          className="new-price-input"
-        />
-      </div>
+              <label htmlFor="newPrice" className="new-price-label">
+                Enter New Price (optional):
+              </label>
+              <input
+                type="text"
+                id="newPrice"
+                value={newPrice}
+                onChange={(e) => setNewPrice(e.target.value)}
+                placeholder="e.g., ₹500"
+                className="new-price-input"
+              />
+            </div>
             <div className="popup-actions">
               <button
                 className="approve-button"
