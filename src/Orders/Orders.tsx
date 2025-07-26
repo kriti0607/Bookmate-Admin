@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Orders.css";
 
 interface HistoryEvent {
@@ -129,6 +129,7 @@ const sampleOrders: Order[] = [
 
 const Orders: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [activeTab, setActiveTab] = useState<"history" | "list">("history");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -160,16 +161,31 @@ const Orders: React.FC = () => {
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
-        <h2 className="sidebar-title">Admin</h2>
+        <h2 className="admin-title">Admin</h2>
         <nav className="sidebar-nav">
           <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-            <li className="nav-link" onClick={() => navigate("/dashboard")}>
+            <li
+              className={`nav-link ${location.pathname === "/dashboard" ? "active" : ""}`}
+              onClick={() => navigate("/dashboard")}
+            >
               Dashboard
             </li>
-            <li className="nav-link active" onClick={() => navigate("/orders")}>
+            <li
+              className={`nav-link ${location.pathname === "/user" ? "active" : ""}`}
+              onClick={() => navigate("/user")}
+            >
+              User
+            </li>
+            <li
+              className={`nav-link ${location.pathname === "/orders" ? "active" : ""}`}
+              onClick={() => navigate("/orders")}
+            >
               Orders
             </li>
-            <li className="nav-link" onClick={() => navigate("/")}>
+            <li
+              className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+              onClick={() => navigate("/")}
+            >
               Logout
             </li>
           </ul>
@@ -222,11 +238,9 @@ const Orders: React.FC = () => {
           </table>
         </div>
 
-        {/* MODAL */}
         {selectedOrder && (
           <div className="modal-overlay">
             <div className="modal-container" style={{ width: "70%", maxHeight: "85vh" }}>
-              {/* Top Box */}
               <div className="modal-top-box">
                 <button className="modal-close" onClick={closeModal}>×</button>
                 <button className="block-button" onClick={() => handleBlockUser(selectedOrder.uploadedBy)}>
@@ -244,7 +258,6 @@ const Orders: React.FC = () => {
                 </div>
               </div>
 
-              {/* Bottom Box with Tabs */}
               <div className="modal-bottom-box">
                 <div className="modal-tabs">
                   <button
@@ -300,7 +313,7 @@ const Orders: React.FC = () => {
                           <p><strong>Price:</strong> {selectedBook.price}</p>
                           <p><strong>Status:</strong> {selectedBook.status}</p>
                           <p><strong>Description:</strong> {selectedBook.description}</p>
-                          <button 
+                          <button
                             onClick={() => setSelectedBook(null)}
                             style={{
                               marginTop: "10px",
@@ -328,8 +341,8 @@ const Orders: React.FC = () => {
                           </thead>
                           <tbody>
                             {selectedOrder.otherBooks.map((book, idx) => (
-                              <tr 
-                                key={idx} 
+                              <tr
+                                key={idx}
                                 onClick={() => handleBookClick(book)}
                                 style={{ cursor: "pointer" }}
                               >
@@ -356,3 +369,4 @@ const Orders: React.FC = () => {
 };
 
 export default Orders;
+

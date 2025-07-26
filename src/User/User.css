@@ -1,0 +1,143 @@
+/* User Management Table Styles */
+.user-table-container {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.user-management-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-management-table th,
+.user-management-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+.user-management-table th {
+    background-color: #f5f5f5;
+    color: #1D4F6C;
+    font-weight: 600;
+}
+
+.user-profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* --- Actions Cell and Button Container Styling --- */
+
+/* Ensures the table cell itself is a flex container to center its content */
+.actions-cell {
+    min-width: 120px;
+    /* Use padding property directly instead of !important if possible,
+       but kept for consistency with your original. */
+    padding: 0 10px;
+
+    /* These flex properties are crucial for centering the .user-actions-vertical div */
+    display: flex;
+    justify-content: center; /* Centers content horizontally within the cell */
+    align-items: center;   /* Centers content vertically within the cell */
+}
+
+/* Vertical button arrangement container */
+.user-actions-vertical {
+    /* Explicitly make this a column flex container for the buttons */
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Adds space between the buttons */
+
+    /* Ensures the buttons are centered horizontally within this column layout */
+    align-items: center;
+    
+    /* Optional: If you want the button column to take less than 100% width of the cell,
+       you can add `width: fit-content;` or a specific width here.
+       Otherwise, it will stretch due to `align-items: stretch` being default for row-axis in column flex. */
+}
+
+/* --- Button Styling --- */
+.action-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-align: center;
+
+    /* This is key to preventing "floating" if it was caused by position/float properties */
+    position: static !important; /* Forces the element into normal document flow */
+    float: none !important;     /* Ensures no floating behavior */
+
+    /* Use `width: 100%` if you want the buttons to fill the available width of the `user-actions-vertical` container.
+       If buttons appear too wide, change to `width: auto;` or `width: fit-content;` */
+    width: 100%;
+}
+
+.block-button {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.block-button:hover:not(.disabled) {
+    background-color: #ff5252;
+}
+
+.unblock-button {
+    background-color: #51cf66;
+    color: white;
+}
+
+.unblock-button:hover:not(.disabled) {
+    background-color: #40c057;
+}
+
+.action-button.disabled {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* --- Status Badges --- */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.approved {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: #388e3c;
+}
+
+.status-badge.rejected {
+    background-color: rgba(244, 67, 54, 0.15);
+    color: #d32f2f;
+}
+
+.status-badge.pending {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: #b38800;
+}
+
+/* --- Table row styling (already present and fine) --- */
+.user-table-row {
+    height: 70px;
+}
+
+/* This class `actions-column` is not used in your React component directly,
+   but if it's applied to the <th> element, it's fine. */
+.actions-column {
+    width: 140px;
+}
