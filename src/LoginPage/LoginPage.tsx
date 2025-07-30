@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
+import { loginUser } from "../service/services"; // ✅ Make sure this path is correct
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (username && password) {
-      navigate("/Dashboard");
+      try {
+        const result = await loginUser(username, password);
+        if (result.token) {
+          console.log("Login successful:", result);
+          navigate("/Dashboard");
+        } else {
+          alert(result.message || "Login failed. Please check your credentials.");
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        alert("Something went wrong. Please try again later.");
+      }
     } else {
       alert("Please enter both username and password.");
     }
